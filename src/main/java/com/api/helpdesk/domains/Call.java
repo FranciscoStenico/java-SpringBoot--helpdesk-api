@@ -1,21 +1,47 @@
 package com.api.helpdesk.domains;
 
+import java.io.Serializable;
 import java.time.LocalDate;
 
 import com.api.helpdesk.domains.enums.Priority;
 import com.api.helpdesk.domains.enums.Status;
+import com.fasterxml.jackson.annotation.JsonFormat;
 
-public class Call {
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 
+@Entity(name = "calls")
+public class Call implements Serializable {
+    private static final long serialVersionUID = 1L;
+
+    @Id
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Integer id;
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate createdAt = LocalDate.now();
+
+    @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate closedAt;
+
     private Priority priority;
+    
     private Status status;
+    
     private String title;
+    
     private String remarks;
 
+    @ManyToOne
+    @JoinColumn(name = "technician_id")
     private Technician technician;
+    
+    @ManyToOne
+    @JoinColumn(name = "client_id")
     private Client client;
 
     public Call() {
