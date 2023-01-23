@@ -7,7 +7,7 @@ import java.util.stream.Collectors;
 
 import com.api.helpdesk.domains.enums.Profile;
 
-public abstract class Person {
+public abstract class User {
 
     protected Integer id;
     protected String name;
@@ -17,12 +17,12 @@ public abstract class Person {
     protected Set<Integer> profiles = new HashSet<>();
     protected LocalDate createdAt = LocalDate.now();
 
-    public Person() {
+    public User() {
         super();
         addProfile(Profile.CLIENT);
     }
 
-    public Person(Integer id, String name, String cpf, String email, String password) {
+    public User(Integer id, String name, String cpf, String email, String password) {
         this.id = id;
         this.name = name;
         this.cpf = cpf;
@@ -104,7 +104,7 @@ public abstract class Person {
             return false;
         if (getClass() != obj.getClass())
             return false;
-        Person other = (Person) obj;
+        User other = (User) obj;
         if (id == null) {
             if (other.id != null)
                 return false;

@@ -3,7 +3,7 @@ package com.api.helpdesk.domains;
 import java.util.List;
 import java.util.ArrayList;
 
-public class Technician extends Person {
+public class Technician extends User {
 
     private List<Call> calls = new ArrayList<>();
 

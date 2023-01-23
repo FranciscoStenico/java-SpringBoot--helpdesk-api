@@ -4,7 +4,7 @@ import java.util.ArrayList;
 
 import java.util.List;
 
-public class Client extends Person {
+public class Client extends User {
 
     private List<Call> calls = new ArrayList<>();
 
