@@ -1,15 +1,15 @@
-package com.api.helpdesk.domain.enums;
+package com.api.helpdesk.domains.enums;
 
-public enum Profile {
+public enum Status {
 
-    ADMIN(0, "ROLE_ADMIN"),
-    CLIENT(1, "ROLE_CLIENT"),
-    DEV(2, "ROLE_DEV");
+    OPENED(0, "OPENED"), 
+    IN_PROGRESS(1, "IN_PROGRESS"), 
+    CLOSED(2, "CLOSED");
 
     private Integer code;
     private String description;
 
-    private Profile(Integer code, String description) {
+    private Status(Integer code, String description) {
         this.code = code;
         this.description = description;
     }
@@ -22,18 +22,18 @@ public enum Profile {
         return description;
     }
 
-    public static Profile toEnum(Integer code) {
+    public static Status toEnum(Integer code) {
         if (code == null) {
             return null;
         }
 
-        for (Profile instance : Profile.values()) {
+        for (Status instance : Status.values()) {
             if (code.equals(instance.getCode())) {
                 return instance;
             }
         }
 
-        throw new IllegalArgumentException("Invalid Profile");
+        throw new IllegalArgumentException("Invalid Status");
     }
 
 }
