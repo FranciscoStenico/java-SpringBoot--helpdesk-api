@@ -9,7 +9,7 @@ import com.api.helpdesk.domains.enums.Profile;
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
 
-@Entity(name = "clients")
+@Entity
 public class Client extends User {
     private static final long serialVersionUID = 1L;
 

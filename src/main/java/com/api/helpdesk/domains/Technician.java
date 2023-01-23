@@ -9,7 +9,7 @@ import jakarta.persistence.OneToMany;
 
 import java.util.ArrayList;
 
-@Entity(name = "technicians")
+@Entity
 public class Technician extends User {
     private static final long serialVersionUID = 1L;
 

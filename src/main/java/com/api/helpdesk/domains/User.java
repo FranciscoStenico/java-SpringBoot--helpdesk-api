@@ -17,6 +17,7 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.validation.constraints.Email;
 
 @Entity(name = "users")
 public abstract class User implements Serializable {
@@ -31,6 +32,7 @@ public abstract class User implements Serializable {
     @Column(unique = true)
     protected String cpf;
 
+    @Email
     @Column(unique = true)
     protected String email;
 
