@@ -12,6 +12,7 @@ import java.util.ArrayList;
 
 @Entity
 public class Technician extends User {
+    
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore

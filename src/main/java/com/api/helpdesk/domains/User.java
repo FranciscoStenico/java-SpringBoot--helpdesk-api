@@ -47,7 +47,6 @@ public abstract class User implements Serializable {
 
     public User() {
         super();
-        addProfile(Profile.CLIENT);
     }
 
     public User(Integer id, String name, String cpf, String email, String password) {
@@ -56,7 +55,6 @@ public abstract class User implements Serializable {
         this.cpf = cpf;
         this.email = email;
         this.password = password;
-        addProfile(Profile.CLIENT);
     }
 
     public Integer getId() {
