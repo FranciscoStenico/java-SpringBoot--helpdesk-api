@@ -14,7 +14,7 @@ public class TechnicianService {
     @Autowired
     private TechnicianRepository repository;
 
-    public Technician findById(Integer id) {
+    public Technician retrieve(Integer id) {
         Optional<Technician> instance = this.repository.findById(id);
         return instance.orElse(null);
     }

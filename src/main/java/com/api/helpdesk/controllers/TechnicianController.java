@@ -19,7 +19,7 @@ public class TechnicianController {
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<Technician> findById(@PathVariable Integer id) {
-        Technician instance = this.service.findById(id);
+        Technician instance = this.service.retrieve(id);
         return ResponseEntity.ok().body(instance);
     }
 }
