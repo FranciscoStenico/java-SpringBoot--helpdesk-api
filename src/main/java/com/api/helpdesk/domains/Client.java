@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 import com.api.helpdesk.domains.enums.Profile;
+import com.fasterxml.jackson.annotation.JsonIgnore;
 
 import jakarta.persistence.Entity;
 import jakarta.persistence.OneToMany;
@@ -13,6 +14,7 @@ import jakarta.persistence.OneToMany;
 public class Client extends User {
     private static final long serialVersionUID = 1L;
 
+    @JsonIgnore
     @OneToMany(mappedBy = "client")
     private List<Call> calls = new ArrayList<>();
 
