@@ -1,5 +1,6 @@
 package com.api.helpdesk.services;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +15,10 @@ public class TechnicianService {
 
     @Autowired
     private TechnicianRepository repository;
+
+    public List<Technician> list() {
+        return this.repository.findAll();
+    }
 
     public Technician retrieve(Integer id) {
         Optional<Technician> instance = this.repository.findById(id);
