@@ -28,13 +28,16 @@ public class DBService {
     Technician technician1 = new Technician(
         null, "Francisco Stenico", "12345678900", "francisco@teste.com", "1234Teste!");
 
+    Technician technician2 = new Technician(
+        null, "Nikola Tesla", "12345678901", "ntesla@teste.com", "1234Teste!");
+
     Client client1 = new Client(
         null, "Carolina Maronese", "98765432100", "carolina@teste.com", "1234Teste!");
 
     Call call1 = new Call(null, Priority.MEDIUM_PRIORITY, Status.IN_PROGRESS, "Chamado - 01",
         "Observações sobre o chamado", technician1, client1);
 
-    techRepo.saveAll(Arrays.asList(technician1));
+    techRepo.saveAll(Arrays.asList(technician1, technician2));
     clientRepo.saveAll(Arrays.asList(client1));
     callRepo.saveAll(Arrays.asList(call1));
   }
