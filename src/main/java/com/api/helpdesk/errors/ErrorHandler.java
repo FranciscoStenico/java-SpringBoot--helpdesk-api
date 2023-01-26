@@ -8,10 +8,10 @@ import org.springframework.web.bind.annotation.ExceptionHandler;
 import jakarta.servlet.http.HttpServletRequest;
 
 @ControllerAdvice
-public class ErrorController {
+public class ErrorHandler {
 
     @ExceptionHandler(AppError.class)
-    public ResponseEntity<AppError> handler(AppError error, HttpServletRequest request) {
+    public ResponseEntity<AppError> main(AppError error, HttpServletRequest request) {
         error.setPath(request);
 
         switch (error.getStatus()) {
