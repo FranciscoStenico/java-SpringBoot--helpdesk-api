@@ -31,6 +31,14 @@ public class AppError extends RuntimeException {
         setError();
         setTimestamp();
     }
+    
+    public AppError(String message, int status, String error) {
+        this.message = message;
+        this.status = status;
+        setError();
+        this.error = this.error + ": " + error;
+        setTimestamp();
+    }
 
     public int getStatus() {
         return status;
