@@ -2,6 +2,8 @@ package com.api.helpdesk.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.FieldError;
+import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
@@ -11,7 +13,7 @@ import jakarta.servlet.http.HttpServletRequest;
 public class ErrorHandler {
 
     @ExceptionHandler(AppError.class)
-    public ResponseEntity<AppError> main(AppError error, HttpServletRequest request) {
+    public ResponseEntity<AppError> app(AppError error, HttpServletRequest request) {
         error.setPath(request);
 
         switch (error.getStatus()) {
@@ -25,5 +27,16 @@ public class ErrorHandler {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
+    
+    @ExceptionHandler(MethodArgumentNotValidException.class)
+    public ResponseEntity<ValidationError> validations(MethodArgumentNotValidException error, HttpServletRequest request) {
+        ValidationError errors = new ValidationError("Request is missing required fields");
 
+        errors.setPath(request);
+        for (FieldError message: error.getBindingResult().getFieldErrors()) {
+            errors.addErrors(message.getDefaultMessage());
+        }
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
 }

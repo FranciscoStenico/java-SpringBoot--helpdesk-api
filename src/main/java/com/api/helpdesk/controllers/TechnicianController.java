@@ -18,6 +18,8 @@ import com.api.helpdesk.domains.Technician;
 import com.api.helpdesk.domains.dtos.TechnicianDTO;
 import com.api.helpdesk.services.TechnicianService;
 
+import jakarta.validation.Valid;
+
 @RestController
 @RequestMapping(value = "/technicians")
 public class TechnicianController {
@@ -26,7 +28,7 @@ public class TechnicianController {
     private TechnicianService service;
 
     @PostMapping
-    public ResponseEntity<TechnicianDTO> create(@RequestBody TechnicianDTO data) {
+    public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO data) {
         Technician newTechnician = service.create(data);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

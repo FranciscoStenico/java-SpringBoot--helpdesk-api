@@ -40,7 +40,7 @@ public class AppError extends RuntimeException {
         setTimestamp();
     }
 
-    public int getStatus() {
+    public Integer getStatus() {
         return status;
     }
 
