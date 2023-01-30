@@ -13,8 +13,6 @@ import com.api.helpdesk.errors.AppError;
 import com.api.helpdesk.repositories.TechnicianRepository;
 import com.api.helpdesk.repositories.UserRepository;
 
-import jakarta.validation.Valid;
-
 @Service
 public class TechnicianService {
 
@@ -25,9 +23,9 @@ public class TechnicianService {
 
     public Technician create(TechnicianDTO data) {
         data.setId(null);
-        validate(data);
+        this.validate(data);
         Technician newEntity = new Technician(data);
-        return repository.save(newEntity);
+        return this.repository.save(newEntity);
     }
 
     public List<Technician> list() {
@@ -35,32 +33,32 @@ public class TechnicianService {
     }
 
     public Technician retrieve(Integer id) {
-        Optional<Technician> currentEntity = this.repository.findById(id);
-        return currentEntity.orElseThrow(
-                () -> new AppError("Technician not found", 404, "Object not found"));
+        Optional<Technician> retrievedEntity = this.repository.findById(id);
+        return retrievedEntity.orElseThrow(
+                () -> new AppError("Technician not found", 404, "Entity not found"));
     }
 
-    public Technician update(Integer id, @Valid TechnicianDTO updates) {
+    public Technician update(Integer id, TechnicianDTO updates) {
         updates.setId(id);
         Technician oldEntity = retrieve(id);
-        validate(updates);
+        this.validate(updates);
         oldEntity = new Technician(updates);
-        return repository.save(oldEntity);
+        return this.repository.save(oldEntity);
     }
 
-    public void delete(Integer id) {
-        Technician currentEntity = retrieve(id);
-        if (currentEntity.getCalls().size() > 0) {
+    public void destroy(Integer id) {
+        Technician entityToBeDeleted = this.retrieve(id);
+        if (entityToBeDeleted.getCalls().size() > 0) {
             throw new AppError(
                     "Technician has active calls and cannot be deleted",
                     409,
                     "Data Integrity Violation");
         }
-        repository.delete(currentEntity);
+        this.repository.delete(entityToBeDeleted);
     }
 
     public void validate(TechnicianDTO data) {
-        Optional<User> instance = userRepository.findByEmail(data.getEmail());
+        Optional<User> instance = this.userRepository.findByEmail(data.getEmail());
         if (instance.isPresent() && instance.get().getId() != data.getId()) {
             throw new AppError("This Email is already being used", 400, "Data violation");
         }

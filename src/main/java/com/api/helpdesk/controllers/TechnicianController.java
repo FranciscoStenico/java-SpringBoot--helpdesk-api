@@ -31,38 +31,40 @@ public class TechnicianController {
 
     @PostMapping
     public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO data) {
-        Technician instance = service.create(data);
+        Technician newEntity = service.create(data);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(instance.getId())
+                .buildAndExpand(newEntity.getId())
                 .toUri();
-        return ResponseEntity.created(uri).body(new TechnicianDTO(instance));
+        return ResponseEntity.created(uri).body(new TechnicianDTO(newEntity));
     }
 
     @GetMapping
     public ResponseEntity<List<TechnicianDTO>> findAll() {
-        List<Technician> instanceList = this.service.list();
-        List<TechnicianDTO> instanceListDTO = instanceList.stream().map(instance -> new TechnicianDTO(instance))
+        List<Technician> entityList = this.service.list();
+        List<TechnicianDTO> DTOEntitiesList = entityList
+                .stream()
+                .map(instance -> new TechnicianDTO(instance))
                 .collect(Collectors.toList());
-        return ResponseEntity.ok().body(instanceListDTO);
+        return ResponseEntity.ok().body(DTOEntitiesList);
     }
 
     @GetMapping(value = "/{id}")
     public ResponseEntity<TechnicianDTO> findById(@PathVariable Integer id) {
-        Technician instance = this.service.retrieve(id);
-        return ResponseEntity.ok().body(new TechnicianDTO(instance));
+        Technician retrievedEntity = this.service.retrieve(id);
+        return ResponseEntity.ok().body(new TechnicianDTO(retrievedEntity));
     }
 
     @PutMapping(value = "/{id}")
     public ResponseEntity<TechnicianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicianDTO updates) {
-        Technician updatedInstance = service.update(id, updates);
-        return ResponseEntity.ok().body(new TechnicianDTO(updatedInstance));
+        Technician updatedEntity = this.service.update(id, updates);
+        return ResponseEntity.ok().body(new TechnicianDTO(updatedEntity));
     }
 
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
-        service.delete(id);
+        this.service.destroy(id);
         return ResponseEntity.noContent().build();
     }
 
