@@ -26,8 +26,8 @@ public class TechnicianService {
     public Technician create(TechnicianDTO data) {
         data.setId(null);
         validate(data);
-        Technician newTechnician = new Technician(data);
-        return repository.save(newTechnician);
+        Technician newEntity = new Technician(data);
+        return repository.save(newEntity);
     }
 
     public List<Technician> list() {
@@ -35,17 +35,29 @@ public class TechnicianService {
     }
 
     public Technician retrieve(Integer id) {
-        Optional<Technician> instance = this.repository.findById(id);
-        return instance.orElseThrow(
+        Optional<Technician> currentEntity = this.repository.findById(id);
+        return currentEntity.orElseThrow(
                 () -> new AppError("Technician not found", 404, "Object not found"));
     }
-    
+
     public Technician update(Integer id, @Valid TechnicianDTO updates) {
         updates.setId(id);
-        Technician oldInstance = retrieve(id);
+        Technician oldEntity = retrieve(id);
         validate(updates);
-        oldInstance = new Technician(updates);
-        return repository.save(oldInstance);
+        oldEntity = new Technician(updates);
+        return repository.save(oldEntity);
+    }
+
+    public void delete(Integer id) {
+        Technician currentEntity = retrieve(id);
+        if (currentEntity.getCalls().size() > 0) {
+            throw new AppError(
+                    "Technician has active calls and cannot be deleted",
+                    409,
+                    "Data Integrity Violation");
+        } else {
+            repository.delete(currentEntity);
+        }
     }
 
     public void validate(TechnicianDTO data) {
