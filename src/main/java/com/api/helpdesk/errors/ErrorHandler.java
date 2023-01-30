@@ -24,6 +24,8 @@ public class ErrorHandler {
                 return ResponseEntity.status(HttpStatus.FORBIDDEN).body(error);
             case 404:
                 return ResponseEntity.status(HttpStatus.NOT_FOUND).body(error);
+            case 409:
+                return ResponseEntity.status(HttpStatus.CONFLICT).body(error);
             default:
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }

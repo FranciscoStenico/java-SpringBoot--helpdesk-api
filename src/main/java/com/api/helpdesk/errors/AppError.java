@@ -31,7 +31,7 @@ public class AppError extends RuntimeException {
         setError();
         setTimestamp();
     }
-    
+
     public AppError(String message, int status, String error) {
         this.message = message;
         this.status = status;
@@ -62,6 +62,9 @@ public class AppError extends RuntimeException {
                 break;
             case 404:
                 this.error = "NOT_FOUND";
+                break;
+            case 409:
+                this.error = "CONFLICT";
                 break;
             default:
                 this.error = "BAD_REQUEST";
