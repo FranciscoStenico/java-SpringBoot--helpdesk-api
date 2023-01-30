@@ -26,16 +26,16 @@ public class DBService {
 
   public void setTables() {
     Technician technician1 = new Technician(
-        null, "Francisco Stenico", "12345678900", "francisco@teste.com", "1234Teste!");
+        null, "Technician 1", "583.333.950-23", "t1@test.com", "1234Test!");
 
     Technician technician2 = new Technician(
-        null, "Nikola Tesla", "12345678901", "ntesla@teste.com", "1234Teste!");
+        null, "Technician 2", "253.009.590-65", "t2@test.com", "1234Test!");
 
     Client client1 = new Client(
-        null, "Carolina Maronese", "98765432100", "carolina@teste.com", "1234Teste!");
+        null, "Client 1", "813.649.850-47", "c1@test.com", "1234Test!");
 
     Call call1 = new Call(null, Priority.MEDIUM_PRIORITY, Status.IN_PROGRESS, "Chamado - 01",
-        "Observações sobre o chamado", technician1, client1);
+        "Observations about the call", technician1, client1);
 
     techRepo.saveAll(Arrays.asList(technician1, technician2));
     clientRepo.saveAll(Arrays.asList(client1));

@@ -13,6 +13,8 @@ import com.api.helpdesk.errors.AppError;
 import com.api.helpdesk.repositories.TechnicianRepository;
 import com.api.helpdesk.repositories.UserRepository;
 
+import jakarta.validation.Valid;
+
 @Service
 public class TechnicianService {
 
@@ -36,6 +38,14 @@ public class TechnicianService {
         Optional<Technician> instance = this.repository.findById(id);
         return instance.orElseThrow(
                 () -> new AppError("Technician not found", 404, "Object not found"));
+    }
+    
+    public Technician update(Integer id, @Valid TechnicianDTO updates) {
+        updates.setId(id);
+        Technician oldInstance = retrieve(id);
+        validate(updates);
+        oldInstance = new Technician(updates);
+        return repository.save(oldInstance);
     }
 
     public void validate(TechnicianDTO data) {

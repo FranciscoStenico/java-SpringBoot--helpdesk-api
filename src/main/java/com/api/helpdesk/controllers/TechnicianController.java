@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -29,13 +30,13 @@ public class TechnicianController {
 
     @PostMapping
     public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO data) {
-        Technician newTechnician = service.create(data);
+        Technician instance = service.create(data);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()
                 .path("/{id}")
-                .buildAndExpand(newTechnician.getId())
+                .buildAndExpand(instance.getId())
                 .toUri();
-        return ResponseEntity.created(uri).build();
+        return ResponseEntity.created(uri).body(new TechnicianDTO(instance));
     }
 
     @GetMapping
@@ -51,4 +52,11 @@ public class TechnicianController {
         Technician instance = this.service.retrieve(id);
         return ResponseEntity.ok().body(new TechnicianDTO(instance));
     }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<TechnicianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicianDTO updates) {
+        Technician updatedInstance = service.update(id, updates);
+        return ResponseEntity.ok().body(new TechnicianDTO(updatedInstance));
+    }
+
 }

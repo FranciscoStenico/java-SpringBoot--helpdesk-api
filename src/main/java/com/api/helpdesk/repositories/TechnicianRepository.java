@@ -9,6 +9,4 @@ public interface TechnicianRepository extends JpaRepository<Technician, Integer>
 
     Technician save(TechnicianDTO data);
 
-    
-
 }
