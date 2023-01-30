@@ -55,9 +55,8 @@ public class TechnicianService {
                     "Technician has active calls and cannot be deleted",
                     409,
                     "Data Integrity Violation");
-        } else {
-            repository.delete(currentEntity);
         }
+        repository.delete(currentEntity);
     }
 
     public void validate(TechnicianDTO data) {
