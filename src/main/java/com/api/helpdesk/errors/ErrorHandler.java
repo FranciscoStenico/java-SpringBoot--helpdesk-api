@@ -2,6 +2,7 @@ package com.api.helpdesk.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
@@ -27,16 +28,27 @@ public class ErrorHandler {
                 return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(error);
         }
     }
-    
+
     @ExceptionHandler(MethodArgumentNotValidException.class)
-    public ResponseEntity<ValidationError> validations(MethodArgumentNotValidException error, HttpServletRequest request) {
+    public ResponseEntity<ValidationError> validations(MethodArgumentNotValidException error,
+            HttpServletRequest request) {
         ValidationError errors = new ValidationError("Request is missing required fields");
 
         errors.setPath(request);
-        for (FieldError message: error.getBindingResult().getFieldErrors()) {
+        for (FieldError message : error.getBindingResult().getFieldErrors()) {
             errors.addErrors(message.getDefaultMessage());
         }
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(errors);
+    }
+
+    @ExceptionHandler(TransactionSystemException.class)
+    public ResponseEntity<AppError> invalidData(TransactionSystemException error, HttpServletRequest request) {
+        AppError applicationError = new AppError(
+                "Please insert a valid CPF", 400, "Could not commit JPA transaction");
+
+        applicationError.setPath(request);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
     }
 }

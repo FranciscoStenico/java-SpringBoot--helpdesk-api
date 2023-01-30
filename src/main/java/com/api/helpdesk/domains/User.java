@@ -6,6 +6,8 @@ import java.util.HashSet;
 import java.util.Set;
 import java.util.stream.Collectors;
 
+import org.hibernate.validator.constraints.br.CPF;
+
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
@@ -30,6 +32,7 @@ public abstract class User implements Serializable {
 
     protected String name;
 
+    @CPF
     @Column(unique = true)
     protected String cpf;
 
