@@ -1,6 +1,7 @@
 package com.api.helpdesk.services;
 
 import java.util.Optional;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -39,6 +40,13 @@ public class CallService {
                 () -> new AppError("This call cannot be found", 404, "Entity not found"));
     }
 
+    public Call update(Integer id, CallDTO updates) {
+        updates.setId(id);
+        Call oldEntity = this.retrieve(id);
+        oldEntity = this.createOrUpdate(updates);
+        return this.repository.save(oldEntity);
+    }
+
     public Call createOrUpdate(CallDTO data) {
         Technician retrievedTechnician = this.technicianService.retrieve(data.getTechnician());
         Client retrievedClient = this.clientService.retrieve(data.getClient());
@@ -53,6 +61,10 @@ public class CallService {
         entity.setStatus(Status.toEnum(data.getStatus()));
         entity.setTitle(data.getTitle());
         entity.setRemarks(data.getRemarks());
+
+        if (entity.getStatus().getCode().equals(2)) {
+            entity.setClosedAt(LocalDate.now());
+        }
 
         return entity;
     }

@@ -9,6 +9,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.PutMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
@@ -52,6 +53,12 @@ public class CallController {
     public ResponseEntity<CallDTO> findById(@PathVariable Integer id) {
         Call retrievedEntity = this.service.retrieve(id);
         return ResponseEntity.ok().body(new CallDTO(retrievedEntity));
+    }
+
+    @PutMapping(value = "/{id}")
+    public ResponseEntity<CallDTO> update(@PathVariable Integer id, @Valid @RequestBody CallDTO updates) {
+        Call updatedEntity = this.service.update(id, updates);
+        return ResponseEntity.ok().body(new CallDTO(updatedEntity));
     }
 
 }
