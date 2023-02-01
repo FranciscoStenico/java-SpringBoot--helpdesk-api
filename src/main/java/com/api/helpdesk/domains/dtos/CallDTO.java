@@ -6,6 +6,8 @@ import java.time.LocalDate;
 import com.api.helpdesk.domains.Call;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
+import jakarta.validation.constraints.NotNull;
+
 public class CallDTO implements Serializable {
 
     private static final long serialVersionUID = 1L;
@@ -15,14 +17,19 @@ public class CallDTO implements Serializable {
     private LocalDate createdAt = LocalDate.now();
     @JsonFormat(pattern = "dd/MM/yyyy")
     private LocalDate closedAt;
+    @NotNull(message = "PRIORITY is a required field")
     private Integer priority;
+    @NotNull(message = "STATUS is a required field")
     private Integer status;
+    @NotNull(message = "TITLE is a required field")
     private String title;
     private String remarks;
-    
+
+    @NotNull(message = "TECHNICIAN is a required field")
     private Integer technician;
     private String technicianName;
-    
+
+    @NotNull(message = "CLIENT is a required field")
     private Integer client;
     private String clientName;
 
@@ -39,8 +46,8 @@ public class CallDTO implements Serializable {
         this.title = entity.getTitle();
         this.remarks = entity.getRemarks();
         this.technician = entity.getTechnician().getId();
-        this.client = entity.getClient().getId();
         this.technicianName = entity.getTechnician().getName();
+        this.client = entity.getClient().getId();
         this.clientName = entity.getClient().getName();
     }
 
