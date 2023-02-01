@@ -54,11 +54,11 @@ public class ErrorHandler {
 
         return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
     }
-    
+
     @ExceptionHandler(HttpMessageNotReadableException.class)
     public ResponseEntity<AppError> invalidData(HttpMessageNotReadableException error, HttpServletRequest request) {
         AppError applicationError = new AppError(
-                "Request body syntax error", 400, "Http Message not Readable");
+                "The request body has syntax errors or is null", 400, "Http Message not Readable");
 
         applicationError.setPath(request);
 
