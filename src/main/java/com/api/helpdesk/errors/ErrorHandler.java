@@ -2,6 +2,7 @@ package com.api.helpdesk.errors;
 
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -48,6 +49,16 @@ public class ErrorHandler {
     public ResponseEntity<AppError> invalidData(TransactionSystemException error, HttpServletRequest request) {
         AppError applicationError = new AppError(
                 "Please insert a valid CPF", 400, "Could not commit JPA transaction");
+
+        applicationError.setPath(request);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
+    }
+    
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<AppError> invalidData(HttpMessageNotReadableException error, HttpServletRequest request) {
+        AppError applicationError = new AppError(
+                "Request body syntax error", 400, "Http Message not Readable");
 
         applicationError.setPath(request);
 
