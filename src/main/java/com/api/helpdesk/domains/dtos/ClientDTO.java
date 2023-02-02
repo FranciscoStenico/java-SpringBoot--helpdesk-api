@@ -10,10 +10,10 @@ import com.api.helpdesk.domains.Client;
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class ClientDTO implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     protected Integer id;

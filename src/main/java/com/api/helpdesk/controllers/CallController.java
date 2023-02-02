@@ -19,7 +19,7 @@ import com.api.helpdesk.domains.Call;
 import com.api.helpdesk.domains.dtos.CallDTO;
 import com.api.helpdesk.services.CallService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/calls")

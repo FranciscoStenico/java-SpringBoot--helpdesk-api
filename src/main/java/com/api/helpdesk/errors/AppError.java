@@ -6,7 +6,7 @@ import org.hibernate.annotations.Any;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletRequest;
 
 public class AppError extends RuntimeException {
 

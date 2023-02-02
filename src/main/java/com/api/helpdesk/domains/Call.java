@@ -7,16 +7,16 @@ import com.api.helpdesk.domains.enums.Priority;
 import com.api.helpdesk.domains.enums.Status;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import javax.persistence.Entity;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
 
 @Entity(name = "calls")
 public class Call implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id
@@ -30,17 +30,17 @@ public class Call implements Serializable {
     private LocalDate closedAt;
 
     private Priority priority;
-    
+
     private Status status;
-    
+
     private String title;
-    
+
     private String remarks;
 
     @ManyToOne
     @JoinColumn(name = "technician_id")
     private Technician technician;
-    
+
     @ManyToOne
     @JoinColumn(name = "client_id")
     private Client client;

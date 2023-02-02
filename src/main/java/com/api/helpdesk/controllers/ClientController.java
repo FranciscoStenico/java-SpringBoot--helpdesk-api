@@ -20,7 +20,7 @@ import com.api.helpdesk.domains.Client;
 import com.api.helpdesk.domains.dtos.ClientDTO;
 import com.api.helpdesk.services.ClientService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/clients")

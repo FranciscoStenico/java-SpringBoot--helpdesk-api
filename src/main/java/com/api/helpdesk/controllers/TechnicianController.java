@@ -20,7 +20,7 @@ import com.api.helpdesk.domains.Technician;
 import com.api.helpdesk.domains.dtos.TechnicianDTO;
 import com.api.helpdesk.services.TechnicianService;
 
-import jakarta.validation.Valid;
+import javax.validation.Valid;
 
 @RestController
 @RequestMapping(value = "/technicians")

@@ -6,7 +6,7 @@ import java.time.LocalDate;
 import com.api.helpdesk.domains.Call;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class CallDTO implements Serializable {
 

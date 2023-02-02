@@ -9,12 +9,12 @@ import com.api.helpdesk.domains.dtos.ClientDTO;
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.OneToMany;
+import javax.persistence.Entity;
+import javax.persistence.OneToMany;
 
 @Entity
 public class Client extends User {
-    
+
     private static final long serialVersionUID = 1L;
 
     @JsonIgnore

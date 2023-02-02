@@ -11,19 +11,19 @@ import org.hibernate.validator.constraints.br.CPF;
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.persistence.CollectionTable;
-import jakarta.persistence.Column;
-import jakarta.persistence.ElementCollection;
-import jakarta.persistence.Entity;
-import jakarta.persistence.FetchType;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
-import jakarta.persistence.Id;
-import jakarta.validation.constraints.Email;
+import javax.persistence.CollectionTable;
+import javax.persistence.Column;
+import javax.persistence.ElementCollection;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.validation.constraints.Email;
 
 @Entity(name = "users")
 public abstract class User implements Serializable {
-    
+
     private static final long serialVersionUID = 1L;
 
     @Id

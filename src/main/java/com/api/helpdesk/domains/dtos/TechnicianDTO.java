@@ -10,7 +10,7 @@ import com.api.helpdesk.domains.Technician;
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
 
-import jakarta.validation.constraints.NotNull;
+import javax.validation.constraints.NotNull;
 
 public class TechnicianDTO implements Serializable {
 
