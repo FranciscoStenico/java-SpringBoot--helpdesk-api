@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.api.helpdesk.domains.Technician;
@@ -20,9 +21,12 @@ public class TechnicianService {
     private TechnicianRepository repository;
     @Autowired
     private UserRepository userRepository;
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     public Technician create(TechnicianDTO data) {
         data.setId(null);
+        data.setPassword(encoder.encode(data.getPassword()));
         this.validate(data);
         Technician newEntity = new Technician(data);
         return this.repository.save(newEntity);

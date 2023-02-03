@@ -4,6 +4,7 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.api.helpdesk.domains.Client;
@@ -20,9 +21,12 @@ public class ClientService {
     ClientRepository repository;
     @Autowired
     UserRepository userRepository;
+    @Autowired
+    BCryptPasswordEncoder encoder;
 
     public Client create(ClientDTO data) {
         data.setId(null);
+        data.setPassword(encoder.encode(data.getPassword()));
         this.validate(data);
         Client newEntity = new Client(data);
         return this.repository.save(newEntity);
