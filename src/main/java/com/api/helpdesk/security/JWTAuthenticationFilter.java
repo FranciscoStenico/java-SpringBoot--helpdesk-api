@@ -8,6 +8,7 @@ import javax.servlet.ServletException;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -16,12 +17,16 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 import com.api.helpdesk.domains.dtos.CredentialsDTO;
 import com.api.helpdesk.errors.AppError;
+import com.api.helpdesk.repositories.UserRepository;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilter {
 
     private AuthenticationManager authManager;
     private JWTUtils jwtUtils;
+
+    @Autowired
+    UserRepository userRepository;
 
     public JWTAuthenticationFilter(AuthenticationManager authManager, JWTUtils jwtUtils) {
         this.authManager = authManager;
@@ -49,6 +54,7 @@ public class JWTAuthenticationFilter extends UsernamePasswordAuthenticationFilte
         String token = this.jwtUtils.generateToken(username);
         response.setHeader("access-control-expose-headers", "Authorization");
         response.setHeader("Authorization", "Bearer " + token);
+        response.setStatus(204);
     }
 
     @Override

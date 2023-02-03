@@ -3,6 +3,7 @@ package com.api.helpdesk.errors;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.http.converter.HttpMessageNotReadableException;
+import org.springframework.security.access.AccessDeniedException;
 import org.springframework.transaction.TransactionSystemException;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -59,6 +60,16 @@ public class ErrorHandler {
     public ResponseEntity<AppError> invalidData(HttpMessageNotReadableException error, HttpServletRequest request) {
         AppError applicationError = new AppError(
                 "The request body has syntax errors or is null", 400, "Http Message not Readable");
+
+        applicationError.setPath(request);
+
+        return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(applicationError);
+    }
+    
+    @ExceptionHandler(AccessDeniedException.class)
+    public ResponseEntity<AppError> invalidData(AccessDeniedException error, HttpServletRequest request) {
+        AppError applicationError = new AppError(
+                "Only administrator accounts can perform this action", 400, "Access denied");
 
         applicationError.setPath(request);
 

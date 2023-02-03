@@ -30,7 +30,7 @@ public class ClientController {
     private ClientService service;
 
     @PostMapping()
-    public ResponseEntity<ClientDTO> postMethodName(@Valid @RequestBody ClientDTO data) {
+    public ResponseEntity<ClientDTO> create(@Valid @RequestBody ClientDTO data) {
         Client newEntity = service.create(data);
         URI uri = ServletUriComponentsBuilder
                 .fromCurrentRequest()

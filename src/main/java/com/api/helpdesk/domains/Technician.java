@@ -24,11 +24,13 @@ public class Technician extends User {
     public Technician() {
         super();
         addProfile(Profile.TECHNICIAN);
+        addProfile(Profile.ADMIN);
     }
 
     public Technician(Integer id, String name, String cpf, String email, String password) {
         super(id, name, cpf, email, password);
         addProfile(Profile.TECHNICIAN);
+        addProfile(Profile.ADMIN);
     }
 
     public Technician(TechnicianDTO data) {

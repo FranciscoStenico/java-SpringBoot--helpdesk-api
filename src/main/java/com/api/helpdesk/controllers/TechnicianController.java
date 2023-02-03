@@ -6,6 +6,7 @@ import java.util.stream.Collectors;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -29,6 +30,7 @@ public class TechnicianController {
     @Autowired
     private TechnicianService service;
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PostMapping
     public ResponseEntity<TechnicianDTO> create(@Valid @RequestBody TechnicianDTO data) {
         Technician newEntity = service.create(data);
@@ -56,12 +58,14 @@ public class TechnicianController {
         return ResponseEntity.ok().body(new TechnicianDTO(retrievedEntity));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @PutMapping(value = "/{id}")
     public ResponseEntity<TechnicianDTO> update(@PathVariable Integer id, @Valid @RequestBody TechnicianDTO updates) {
         Technician updatedEntity = this.service.update(id, updates);
         return ResponseEntity.ok().body(new TechnicianDTO(updatedEntity));
     }
 
+    @PreAuthorize("hasAnyRole('ADMIN')")
     @DeleteMapping(value = "/{id}")
     public ResponseEntity<Void> delete(@PathVariable Integer id) {
         this.service.destroy(id);

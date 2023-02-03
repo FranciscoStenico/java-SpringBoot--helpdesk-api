@@ -9,6 +9,8 @@ import java.util.stream.Collectors;
 import com.api.helpdesk.domains.Technician;
 import com.api.helpdesk.domains.enums.Profile;
 import com.fasterxml.jackson.annotation.JsonFormat;
+import com.fasterxml.jackson.annotation.JsonProperty;
+import com.fasterxml.jackson.annotation.JsonProperty.Access;
 
 import javax.validation.constraints.NotNull;
 
@@ -23,6 +25,7 @@ public class TechnicianDTO implements Serializable {
     protected String cpf;
     @NotNull(message = "EMAIL is a required field")
     protected String email;
+    @JsonProperty(access = Access.WRITE_ONLY)
     @NotNull(message = "PASSWORD is a required field")
     protected String password;
     protected Set<Integer> profiles = new HashSet<>();
