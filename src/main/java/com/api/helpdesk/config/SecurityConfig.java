@@ -5,6 +5,7 @@ import java.util.Arrays;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.core.env.Environment;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.config.annotation.authentication.builders.AuthenticationManagerBuilder;
 import org.springframework.security.config.annotation.method.configuration.EnableGlobalMethodSecurity;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -44,6 +45,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
         http.addFilter(new JWTAuthenticationFilter(this.authenticationManager(), this.jwtUtils));
         http.addFilter(new JWTAuthorizationFilter(this.authenticationManager(), jwtUtils, userDetailsService));
         http.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS);
+        http.authorizeRequests().antMatchers(HttpMethod.POST, "/clients/**").permitAll();
         http.authorizeRequests().antMatchers(PUBLIC_MATCHERS).permitAll().anyRequest().authenticated();
     }
 

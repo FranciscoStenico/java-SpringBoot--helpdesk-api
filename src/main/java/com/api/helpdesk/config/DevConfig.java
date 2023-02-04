@@ -19,9 +19,9 @@ public class DevConfig {
     private String propertiesKey;
 
     @Bean
-    public boolean setTables() {
+    public boolean setAdmin() {
         if (propertiesKey.equals("create")) {
-            this.dbService.setTables();
+            this.dbService.examples();
         }
 
         return false;

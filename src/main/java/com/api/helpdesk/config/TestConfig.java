@@ -16,7 +16,7 @@ public class TestConfig {
 
     @Bean
     public void setTables() {
-        this.dbService.setTables();
+        this.dbService.examples();
     }
 
 }
